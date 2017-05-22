@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./main.css">
+  </head>
+
+  <body>
+    <div id="login">
+      <h2>Welcome to Photobucket</h2>
+      <h3>Please sign up to continue</h3>
+
+      <div id="login-input"> 
+        <input type="text" class='signup' placeholder="Name"></input>
+        <input type="text" class='signup' placeholder="Email"></input>
+        <input type="password" class='signup' placeholder="Password"></input>
+        
+        <div>
+          <input class="styled-checkbox" type="checkbox" id="chk" name="chk" value="1" />
+          <label for="chk" class="small">I agree to the terms & conditions</label>
+        </div>
+        
+        <button id="sign-up-button">Sign Up</button>
+      </div>
+      <div class="small">Already a member? <a href="/login">Log in</a></div>
+  
+    </div>
+    <!-- This script adds the Roboto font to our project. For more detail go to this site:  http://www.google.com/fonts#UsePlace:use/Collection:Roboto:400,300,500 -->
+    <script>
+      var WebFontConfig = {
+        google: { families: [ 'Roboto:400,300,500:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+
+  
+  </body>
+</html>

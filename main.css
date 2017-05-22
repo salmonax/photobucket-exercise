@@ -1,0 +1,90 @@
+#login, #login-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#login-input {
+  margin-top: 3em;
+}
+#sign-up-button {
+  width: 105%;
+  margin: 1.7em 1em;
+}
+
+.small {
+  font-size: 0.9em;
+}
+
+h2, h3, h4, h5 {
+  margin: 5px;
+  font-weight: normal;
+}
+
+input, button {
+  border-radius: 0px;
+  border-style: solid;
+  border-width: 1px;
+  outline: 1px rgb(200,200,200);
+  border-color: rgb(180,180,180);
+  margin: 5px;
+}
+
+button { 
+  color: rgb(200,200,200);
+  background-color: rgb(50,50,50);
+}
+
+
+input[type=text], input[type=password], button {
+  width: 100%;
+  padding: 7px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.styled-checkbox {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.styled-checkbox + label {
+  position: relative;
+}
+
+a {
+  color: rgb(80,80,80);
+}
+
+.styled-checkbox + label:before {
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.45em 0 -2em;
+  line-height: 1;
+  text-align: center;
+  /* Put checkbox styles here: */
+  border: 1px solid rgb(200,200,200);
+  background: white;
+}
+.styled-checkbox:checked + label:before {
+  content: '✔';
+}
+
+
+body {
+  color: rgb(60,60,60);
+  font-size: 0.9em;
+  font-family: 'Roboto', sans-serif;
+  background: rgb(240,240,240);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
