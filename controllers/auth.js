@@ -40,7 +40,9 @@ module.exports = {
   login: (req, res, next) => {
     const { email, password } = req.body;
     const sendError = sendError(res, msg.incorrectInfo);
+
     if (!email || !password) { return sendError() }
+      
     passport.authenticate('local', (err, user, info) => {
       if (err || !user) { return sendError(); }
       res.json({ token: makeToken(user) });

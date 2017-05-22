@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./main.css">
+  </head>
+
+  <body onload="document.body.style.opacity='1'">
+    <div id="photo-grid-container">
+      <div id="photo-grid">
+        <div id="photo-grid-title">
+          <h2>Hi Eleven</h2>
+          <h3>Welcome to your Photobucket</h3>
+        </div>
+        
+        <div class="photo-row">
+          <div class="photo-container">
+            <div class="photo">
+              <img src="https://static.tumblr.com/b3a14b72f0ddeface70d7b146646ae31/jv6i2df/Rf0nd95we/tumblr_static_tumblr_static_4fmo8922uvmsc04cs844ok8kw_640.jpg">
+            </div>
+            <div class="caption">
+              <div>Beautiful trees</div>
+              <div>By Eleven</div>
+            </div>
+          </div>
+
+          <div class="photo-container">
+            <div class="photo">
+              <img src="https://static.tumblr.com/bacfd3aff7c54bedd1425ba4f1b87bf9/nc5p93p/raPnbumsb/tumblr_static_tumblr_static_cbrkyrdf3dw0gk8gck0gskco0_640.jpg">
+            </div>
+            <div class="caption">
+              <div>Beautiful trees</div>
+              <div>By Eleven</div>
+            </div>
+          </div>
+
+          <div class="photo-container">
+            <div class="photo"></div>
+            <div class="caption">
+              <div>Beautiful trees</div>
+              <div>By Eleven</div>
+            </div>
+          </div>
+ 
+        </div>
+
+        <div class="photo-row">
+          <div class="photo-container">
+            <div class="photo"></div>
+            <div class="caption">
+              <div>Beautiful trees</div>
+              <div>By Eleven</div>
+            </div>
+          </div>
+
+          <div class="photo-container">
+            <div class="photo"></div>
+            <div class="caption">
+              <div>Beautiful trees</div>
+              <div>By Eleven</div>
+            </div>
+          </div>
+
+          <div class="photo-container">
+            <div class="photo"></div>
+            <div class="caption">
+              <div>Beautiful trees</div>
+              <div>By Eleven</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div id="add-image-icon" onclick="loadModal()"></div>
+    <div id="add-image-modal-container">
+      <div id="add-image-modal">
+        <h4>Add Photo</h4>
+        <input type="text" placeholder="Caption"></input>
+        <div id="add-image-buttons">
+          <button class="unselected" onclick="cancelModal()">Cancel</button>
+          <button class="selected">Upload</button>
+        </div>
+      </div>
+    </div>
+    <!-- This script adds the Roboto font to our project. For more detail go to this site:  http://www.google.com/fonts#UsePlace:use/Collection:Roboto:400,300,500 -->
+    <script>
+      function loadModal() {
+        const modal = document.getElementById("add-image-modal-container");
+        modal.style.display = "flex";
+      }
+
+      function cancelModal() {
+        const modal = document.getElementById("add-image-modal-container");
+        modal.style.display = "none";
+      }
+
+      var WebFontConfig = {
+        google: { families: [ 'Roboto:400,300,500:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+
+  
+  </body>
+</html>

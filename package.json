@@ -6,15 +6,24 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-react": "^6.24.1",
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
     "crypto": "0.0.3",
     "debug": "~2.6.0",
     "express": "~4.14.1",
+    "http-server": "^0.10.0",
     "jade": "~1.11.0",
     "jwt-simple": "^0.5.1",
     "mongoose": "^4.10.0",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.2"
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router": "^3.0.0",
+    "serve-favicon": "~2.3.2",
+    "webpack": "^2.5.1"
   }
 }
