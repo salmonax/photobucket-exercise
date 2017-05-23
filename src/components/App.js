@@ -1,12 +1,12 @@
 import React from 'react';
 import Login from './Login';
-import PhotoGrid from './PhotoGrid';
+import PhotoGridContainer from './PhotoGrid';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
+      isLoggedIn: false,
       userInfo: {},
     };
     this.handleLogin = this.handleLogin.bind(this);
@@ -42,7 +42,7 @@ class App extends React.Component {
   render() {
     return !this.state.isLoggedIn ?
         <Login login={this.handleLogin} /> :
-        <PhotoGrid 
+        <PhotoGridContainer 
           logout={this.handleLogout}  
           submitPhoto={this.submitPhoto}
         />;

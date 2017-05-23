@@ -1,7 +1,6 @@
 import React from "react";
 
 const PhotoContainer = (props) => {
-  console.log(JSON.stringify(props));
   return (
     <div className="photo-container">
       <div className="photo">
@@ -43,8 +42,8 @@ const PhotoGrid = (props) => {
         {images.map((image) =>
           <PhotoContainer key={image.id} {...image} />
         )}
-        {Array(4).fill().map(() =>
-          <div className="photo-bumper"></div>
+        {Array(4).fill().map((_,i) =>
+          <div key={'bumper'+i} className="photo-bumper"></div>
         )}
 
       </div>
@@ -61,7 +60,7 @@ class PhotoGridContainer extends React.Component {
         <div id="photo-grid-title">
           <h2>Hi Eleven</h2>
           <h3>Welcome to your Photobucket</h3>
-          <div className="small"><a href='#'>Log out</a></div>
+          <div className="small" onClick={this.props.logout}><a href='#'>Log out</a></div>
         </div>
         <PhotoGrid images={"woot"} /> {/* pass photo props */}
       </div>
