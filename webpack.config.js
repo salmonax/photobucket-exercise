@@ -12,13 +12,13 @@ const config = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         query: {
-          presets: ['env', 'react']
-        }
+          presets: ['env', 'react', 'stage-2'],
+        },
       }
     ]
   },
   resolve: {
-    extensions: ['.js','.jsx']
+    extensions: ['.js','.jsx'],
   }
 };
 

@@ -37,4 +37,4 @@ userSchema.methods.validPassword = function (password) {
   return this.password === hashify(password, this.salt);
 };
 
-mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);

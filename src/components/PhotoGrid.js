@@ -37,12 +37,14 @@ const PhotoGrid = (props) => {
     },
   ];
 
+  const bumperCount = (images.length > 3) ? 4 : 0;
+  console.log(bumperCount, images.length);
   return (
       <div id="photo-grid">
         {images.map((image) =>
           <PhotoContainer key={image.id} {...image} />
         )}
-        {Array(4).fill().map((_,i) =>
+        {Array(bumperCount).fill().map((_,i) =>
           <div key={'bumper'+i} className="photo-bumper"></div>
         )}
 
@@ -55,10 +57,11 @@ class PhotoGridContainer extends React.Component {
     super(props);
   }
   render() {
+    console.log(this.props);
     return (
       <div id="photo-grid-container">
         <div id="photo-grid-title">
-          <h2>Hi Eleven</h2>
+          <h2>Hi {this.props.username}</h2>
           <h3>Welcome to your Photobucket</h3>
           <div className="small" onClick={this.props.logout}><a href='#'>Log out</a></div>
         </div>

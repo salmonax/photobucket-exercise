@@ -5,12 +5,14 @@ class Login extends React.Component {
     super(props);
     this.state = {
       isSigningUp: false,
+      formData: {},
     };
     this.flavor = [
-      {question: 'Already a member?', task: 'Sign Up'},
       {question: 'Already signed up?', task: 'Log In'},
+      {question: 'Already a member?', task: 'Sign Up'},
     ];
     this.toggleSignUpMode = this.toggleSignUpMode.bind(this);
+    this.updateField = this.updateField.bind(this);
   }
 
   toggleSignUpMode(e) {
@@ -20,10 +22,19 @@ class Login extends React.Component {
     });
   }
 
+  updateField(field, e) {
+    if ([ 'email', 'username', 'password'].indexOf(field) === -1) return;
+    const { formData } = this.state;
+    const newData = { [field]: e.target.value };
+    this.setState({
+      formData: Object.assign(formData, newData),
+    });
+  }
+
   render() {
     const { isSigningUp } = this.state;
     const flavor = (isSigningUp) ? this.flavor : this.flavor.slice().reverse();
-    const buttonText = flavor[0].task;
+    const activeText = flavor[0].task;
     const alternateText = flavor[1].task;
     const taskQuestion = flavor[0].question;
 
@@ -31,24 +42,43 @@ class Login extends React.Component {
       <div id="login-container">
         <div id="login">
           <h2>Welcome to Photobucket</h2>
-          <h3>Please sign up to continue</h3>
-
+          <h3>Please {alternateText.toLowerCase()} to continue</h3>
           <div id="login-input"> 
-            {}
-            <input type="text" className='signup' placeholder="Name"></input>
-            <input type="text" className='signup' placeholder="Email"></input>
-            <input type="password" className='signup' placeholder="Password"></input>
-            
+            <div className="error small">{this.props.error}</div>
+            {!isSigningUp ?
+              <input 
+                type="text" 
+                className='signup' 
+                placeholder="Name"
+                value = {this.state.username}
+                onChange = {this.updateField.bind(null,'username')}
+              /> : 
+              null
+            }
+            <input 
+              type="text" 
+              className='signup' 
+              placeholder="Email"
+              value = {this.state.email}
+              onChange = {this.updateField.bind(null,'email')}
+            />
+            <input 
+              type="password" 
+              className='signup' 
+              placeholder="Password"
+              value = {this.state.password}
+              onChange = {this.updateField.bind(null,'password')}
+            />
             <div>
               <input className="styled-checkbox" type="checkbox" id="check" name="check" />
               <label htmlFor="check" className="small">I agree to the terms &amp; conditions</label>
             </div>
             
-            <button id="sign-up-button" onClick={this.props.login}>{buttonText}</button>
+            <button id="sign-up-button" onClick={this.props.login.bind(null,this.state.formData, isSigningUp)}>{activeText}</button>
           </div>
 
           <div className="small">
-            {taskQuestion} <a href="/login" onClick={this.toggleSignUpMode}>{alternateText}</a>
+            {taskQuestion} <a href="#" onClick={this.toggleSignUpMode}>{alternateText}</a>
           </div>
         </div>
       </div>
