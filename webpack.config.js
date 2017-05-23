@@ -3,7 +3,7 @@ const path = require('path');
 const config = {
   entry: path.join(__dirname, 'src/index.js'),
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   module: {
@@ -11,6 +11,9 @@ const config = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
+        query: {
+          presets: ['env', 'react']
+        }
       }
     ]
   },
