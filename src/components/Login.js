@@ -5,7 +5,9 @@ class Login extends React.Component {
     super(props);
     this.state = {
       isSigningUp: false,
-      formData: {},
+      formData: {
+        checkbox: false,
+      },
     };
     this.flavor = [
       {question: 'Already signed up?', task: 'Log In'},
@@ -23,12 +25,14 @@ class Login extends React.Component {
   }
 
   updateField(field, e) {
-    if ([ 'email', 'username', 'password'].indexOf(field) === -1) return;
+    if ([ 'email', 'username', 'password', 'checkbox'].indexOf(field) === -1) return;
     const { formData } = this.state;
-    const newData = { [field]: e.target.value };
+    const newValue = (field === 'checkbox') ? !this.state.formData.checkbox : e.target.value;
+    const newData = { [field]: newValue };
     this.setState({
       formData: Object.assign(formData, newData),
     });
+    console.log(this.state.formData);
   }
 
   render() {
@@ -50,7 +54,7 @@ class Login extends React.Component {
                 type="text" 
                 className='signup' 
                 placeholder="Name"
-                value = {this.state.username}
+                value = {this.state.formData.username}
                 onChange = {this.updateField.bind(null,'username')}
               /> : 
               null
@@ -59,18 +63,25 @@ class Login extends React.Component {
               type="text" 
               className='signup' 
               placeholder="Email"
-              value = {this.state.email}
+              value = {this.state.formData.email}
               onChange = {this.updateField.bind(null,'email')}
             />
             <input 
               type="password" 
               className='signup' 
               placeholder="Password"
-              value = {this.state.password}
+              value = {this.state.formData.password}
               onChange = {this.updateField.bind(null,'password')}
             />
             <div>
-              <input className="styled-checkbox" type="checkbox" id="check" name="check" />
+              <input 
+                className="styled-checkbox" 
+                type="checkbox" 
+                id="check" 
+                name="check" 
+                onChange = {this.updateField.bind(null, 'checkbox')}
+                value = {this.state.formData.checkbox}
+              />
               <label htmlFor="check" className="small">I agree to the terms &amp; conditions</label>
             </div>
             

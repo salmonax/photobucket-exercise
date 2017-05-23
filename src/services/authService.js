@@ -18,13 +18,11 @@ export const logout = () => window.localStorage.removeItem(tokenKey);
 
 export const login = (formData) => {
   // refactor local validation into here
-  console.log('AUTH', formData)
   return axios.post('/auth/login', formData).then(saveUser);
 }
 
 export const signup = (formData) => {
   // refactor local validation into here
-  console.log('AUTH', formData);
   return axios.post('/auth/register', formData).then(saveUser);
 }
 

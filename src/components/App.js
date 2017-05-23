@@ -10,7 +10,6 @@ class App extends React.Component {
     this.state = {
       isLoggedIn: !!userData,
       username: userData.username,
-      userData: null,
       errorMessage: '',
     };
     this.handleLogin = this.handleLogin.bind(this);
@@ -22,8 +21,21 @@ class App extends React.Component {
   componentDidMount() {
   }
 
+  _hasFormError(formData) {
+    const { username, email, password, checkbox } = formData;
+    const validEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    if (!checkbox) return 'You must accept the terms.'
+    if (!password || password.length < 8) return 'Password must be > 8 characters.';
+    if (!validEmail.test(email)) return 'Invalid e-mail address.';
+  }
+
   handleLogin(formData, isSigningUp, e) {
     e.preventDefault();
+    const errorMessage = this._hasFormError(formData);
+    if (errorMessage) {
+      this.setState({ errorMessage });
+      return;
+    }
     const action = (isSigningUp) ? auth.login : auth.signup;
     action(formData)
       .then(userData => {
