@@ -12,11 +12,15 @@ export const getImages = (start, end) => {
 
 };
 
-export const postImage = () => {
+export const postImage = (formData) => {
+  const token = auth.getUserData().token;
   if (!token) {
     throw new Error('postImage() requires an authenticated user.');
   }
-  return axios.post('/images', {
-    headers: { 'authorization': auth.getUserData().token },
-  });
+  return axios.post('/images', formData, {
+    headers: { 
+      'authorization': token, 
+      'Content-Type': 'multipart/form-data',
+    },
+   });
 };

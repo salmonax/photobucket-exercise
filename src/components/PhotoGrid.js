@@ -17,33 +17,13 @@ const PhotoContainer = (props) => {
 
 
 const PhotoGrid = (props) => {
-  const images = [
-    { 
-      id: 'eqweqwe',
-      user: 'Marta Von Choogus',
-      caption: 'Beyond the Tree of Dreams',
-      url: 'https://static.tumblr.com/b3a14b72f0ddeface70d7b146646ae31/jv6i2df/Rf0nd95we/tumblr_static_tumblr_static_4fmo8922uvmsc04cs844ok8kw_640.jpg',
-    },
-    {
-      id: 'roewireoi',
-      user: 'Victor McParticle',
-      caption: 'Something Great in the Belly',
-      url: 'https://static.tumblr.com/bacfd3aff7c54bedd1425ba4f1b87bf9/nc5p93p/raPnbumsb/tumblr_static_tumblr_static_cbrkyrdf3dw0gk8gck0gskco0_640.jpg',
-    },
-    { 
-      id: 'popo',
-      user: 'Marta Von Choogus',
-      caption: 'Beyond the Tree of Dreams',
-      url: 'https://static.tumblr.com/b3a14b72f0ddeface70d7b146646ae31/jv6i2df/Rf0nd95we/tumblr_static_tumblr_static_4fmo8922uvmsc04cs844ok8kw_640.jpg',
-    },
-  ];
-
+  const images = props.images;
   const bumperCount = (images.length > 3) ? 4 : 0;
-  console.log(bumperCount, images.length);
+  // console.log(bumperCount, images.length);
   return (
       <div id="photo-grid">
-        {images.map((image) =>
-          <PhotoContainer key={image.id} {...image} />
+        {images.map((image, index) =>
+          <PhotoContainer key={index} {...image} />
         )}
         {Array(bumperCount).fill().map((_,i) =>
           <div key={'bumper'+i} className="photo-bumper"></div>
@@ -57,14 +37,21 @@ class PhotoGridContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      images: [],
       showModal: false,
+      caption: '',
     }
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.triggerBrowse = this.triggerBrowse.bind(this);
+    this.triggerUpload = this.triggerUpload.bind(this);
+    this.updateCaption = this.updateCaption.bind(this);
   }
   componentDidMount() {
-    getImages(0).then(data => {
-      console.log(data);
+    getImages(0).then(res => {
+      this.setState({
+        images: res.data,
+      })
     });
   }
   showModal() {
@@ -78,11 +65,36 @@ class PhotoGridContainer extends React.Component {
     });
   }
 
-  triggerInput() {
-    document.getElementById("browse").click();
+  triggerBrowse() {
+    this.fileBrowser.click();
   }
+
+  triggerUpload() {
+    const file = this.fileBrowser.files[0];
+    if (!/^image/.test(file.type)) {
+      alert('You must select an image!');
+      return;
+    }
+    let formData = new FormData();
+    formData.append('photo',file,file.name);
+    formData.append('caption', this.state.caption);
+    postImage(formData).then(() => {
+      this.hideModal();
+      getImages(0).then(res => {
+        this.setState({
+          images: res.data,
+        })
+      });
+    });
+  }
+  updateCaption(e) {
+    this.setState({
+      caption: e.target.value,
+    });
+  }
+
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div id="photo-grid-container">
         <div id="photo-grid-title">
@@ -90,17 +102,18 @@ class PhotoGridContainer extends React.Component {
           <h3>Welcome to your Photobucket</h3>
           <div className="small" onClick={this.props.logout}><a href='#'>Log out</a></div>
         </div>
-        <PhotoGrid images={"woot"} /> {/* pass photo props */}
+        <PhotoGrid images={this.state.images} /> {/* pass photo props */}
         <div id="add-image-icon" onClick={this.showModal}></div>
         {this.state.showModal ? 
           <div id="add-image-modal-container">
             <div id="add-image-modal">
               <h4>Add Photo</h4>
-              <input type="text" placeholder="Caption"></input>
+              <input type="text" placeholder="Caption" value={this.state.caption} onChange={this.updateCaption} ></input>
               <div id="add-image-buttons">
                 <button class="unselected" onClick={this.hideModal}>Cancel</button>
-                <button class="selected" onClick={this.triggerInput}>Upload</button>
-                <input id="browse" type="file" name="pic" accept="image/*"/>
+                <button class="selected" onClick={this.triggerBrowse}>Upload</button>
+                <input id="browse" ref={(el) => this.fileBrowser = el} type="file" name="file" onChange={this.triggerUpload}/>
+
               </div>
             </div>
           </div> : null

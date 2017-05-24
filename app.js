@@ -17,13 +17,12 @@ require('./config/passport');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncommpp.jent after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/uploads',express.static(path.join(__dirname, 'uploads/users')));
 
 app.use('/', index);
 app.use('/users', users);
@@ -33,6 +32,11 @@ app.use('/auth', auth);
 var jwt = require('jwt-simple');
 var secret = process.env.JWT_SECRET || 'super duper secret';
 var User = require('./models/user');
+var multer = require('multer');
+var upload = multer({ dest: './uploads/temp/'}).any();
+var fs = require('fs');
+var path = require('path');
+var shorthash = require('shorthash').unique;
 
 app.get('/images', function (req, res, next) {
   let userData;
@@ -43,19 +47,51 @@ app.get('/images', function (req, res, next) {
     res.status(400).json( { message: 'Authorization failed.' });
     return;
   }
-  // Check potentially expired token against the database here
-  console.log(userData);
+  // TO DO: heck potentially expired token against the database here
+  const userHash = shorthash(userData.email);
+  const imagePath = path.resolve('./uploads/users/', userHash);
+  const imageRoute = path.resolve('/uploads/', userHash);
+
+  fs.readdir(imagePath, (err, items) => {
+    let output = (!items) ? [] : items.map(filename => {
+      return {
+        caption: "Caption Placeholder",
+        url: path.resolve(imageRoute, filename),
+        user: userData.username
+      };
+    });
+    res.json(output);
+
+  });
+
+
+
 });
 
-app.post('/images', function (req, res, next) {
+app.post('/images', upload, function (req, res, next) {
   let userData;
+  console.log(req.files[0], req.body);
   try {
     userData = jwt.decode(req.headers.authorization, secret);
   } catch (err) {
     res.status(400).json({ message: 'Authorization failed.' });
     return;
   }
-  // Check potentially expired token against the database here
+  let file = req.files[0];
+
+  let tempPath = file.path;
+  let targetDir = path.resolve('./uploads/users/', shorthash(userData.email));
+  let targetPath = path.resolve(targetDir, file.originalname);
+
+  if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir);
+  }
+  fs.rename(tempPath, targetPath, (err) => {
+    if (err) throw err;
+    res.json({message: "Upload successful!"});
+  });
+
+  // TO DO: check potentially expired token against the database here
   console.log(userData);
 });
 

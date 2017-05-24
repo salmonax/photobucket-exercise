@@ -10,8 +10,8 @@ class Login extends React.Component {
       },
     };
     this.flavor = [
-      {question: 'Already signed up?', task: 'Log In'},
-      {question: 'Already a member?', task: 'Sign Up'},
+      {question: 'Already signed up?', task: 'Sign Up'},
+      {question: 'Already a member?', task: 'Log In'},
     ];
     this.toggleSignUpMode = this.toggleSignUpMode.bind(this);
     this.updateField = this.updateField.bind(this);
@@ -38,15 +38,16 @@ class Login extends React.Component {
   render() {
     const { isSigningUp } = this.state;
     const flavor = (isSigningUp) ? this.flavor : this.flavor.slice().reverse();
-    const activeText = flavor[1].task;
-    const alternateText = flavor[0].task;
-    const taskQuestion = flavor[0].question;
+    const activeText = flavor[0].task;
+    const activeQuestion = flavor[0].question;
+    const alternateText = flavor[1].task;
+    const doLogin = this.props.login.bind(null,this.state.formData, isSigningUp);
 
     return (
       <div id="login-container">
         <div id="login">
           <h2>Welcome to Photobucket</h2>
-          <h3>Please {alternateText.toLowerCase()} to continue</h3>
+          <h3>Please {activeText.toLowerCase()} to continue</h3>
           <div id="login-input"> 
             <div className="error small">{this.props.error}</div>
             {isSigningUp ?
@@ -91,11 +92,11 @@ class Login extends React.Component {
               }
             </div>
             
-            <button id="sign-up-button" onClick={this.props.login.bind(null,this.state.formData, isSigningUp)}>{activeText}</button>
+            <button id="sign-up-button" onClick={doLogin}>{activeText}</button>
           </div>
 
           <div className="small">
-            {taskQuestion} <a href="#" onClick={this.toggleSignUpMode}>{alternateText}</a>
+            {activeQuestion} <a href="#" onClick={this.toggleSignUpMode}>{alternateText}</a>
           </div>
         </div>
       </div>

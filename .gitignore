@@ -1,3 +1,7 @@
+uploads/users/*
+uploads/temp/*
+
+
 dist/bundle.js
 # Logs
 logs

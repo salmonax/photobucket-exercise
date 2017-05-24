@@ -18,6 +18,7 @@
 #login-input {
   position: relative;
   margin-top: 3em;
+  width: 17em;
 }
 #sign-up-button {
   width: 105%;
