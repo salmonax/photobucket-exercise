@@ -43,6 +43,7 @@ app.get('/images', function (req, res, next) {
     res.status(400).json( { message: 'Authorization failed.' });
     return;
   }
+  // Check potentially expired token against the database here
   console.log(userData);
 });
 
@@ -50,13 +51,12 @@ app.post('/images', function (req, res, next) {
   let userData;
   try {
     userData = jwt.decode(req.headers.authorization, secret);
-    // actually check db for expired token here
   } catch (err) {
     res.status(400).json({ message: 'Authorization failed.' });
     return;
   }
+  // Check potentially expired token against the database here
   console.log(userData);
-
 });
 
 

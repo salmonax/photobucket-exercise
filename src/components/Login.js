@@ -4,7 +4,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSigningUp: false,
+      isSigningUp: true,
       formData: {
         checkbox: false,
       },
@@ -32,14 +32,14 @@ class Login extends React.Component {
     this.setState({
       formData: Object.assign(formData, newData),
     });
-    console.log(this.state.formData);
+    // console.log(this.state.formData);
   }
 
   render() {
     const { isSigningUp } = this.state;
     const flavor = (isSigningUp) ? this.flavor : this.flavor.slice().reverse();
-    const activeText = flavor[0].task;
-    const alternateText = flavor[1].task;
+    const activeText = flavor[1].task;
+    const alternateText = flavor[0].task;
     const taskQuestion = flavor[0].question;
 
     return (
@@ -49,7 +49,7 @@ class Login extends React.Component {
           <h3>Please {alternateText.toLowerCase()} to continue</h3>
           <div id="login-input"> 
             <div className="error small">{this.props.error}</div>
-            {!isSigningUp ?
+            {isSigningUp ?
               <input 
                 type="text" 
                 className='signup' 
@@ -74,15 +74,21 @@ class Login extends React.Component {
               onChange = {this.updateField.bind(null,'password')}
             />
             <div>
-              <input 
-                className="styled-checkbox" 
-                type="checkbox" 
-                id="check" 
-                name="check" 
-                onChange = {this.updateField.bind(null, 'checkbox')}
-                value = {this.state.formData.checkbox}
-              />
-              <label htmlFor="check" className="small">I agree to the terms &amp; conditions</label>
+              {isSigningUp ? 
+                <div>
+                  <input 
+                    className="styled-checkbox" 
+                    type="checkbox" 
+                    id="check" 
+                    name="check" 
+                    onChange = {this.updateField.bind(null, 'checkbox')}
+                    value = {this.state.formData.checkbox}
+                  />
+                  <label htmlFor="check" className="small">
+                    I agree to the terms &amp; conditions
+                  </label>
+                </div> : null
+              }
             </div>
             
             <button id="sign-up-button" onClick={this.props.login.bind(null,this.state.formData, isSigningUp)}>{activeText}</button>
