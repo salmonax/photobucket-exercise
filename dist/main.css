@@ -173,7 +173,7 @@ body {
 
 #add-image-icon {
   position: fixed;
-  background: url('plus.svg');
+  background: url('images/plus.svg');
   width: 4em;
   height: 4em;
 
@@ -182,7 +182,7 @@ body {
 }
 
 #add-image-modal-container {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;

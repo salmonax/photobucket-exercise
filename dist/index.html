@@ -13,6 +13,15 @@
     var WebFontConfig = {
       google: { families: [ 'Roboto:400,300,500:latin' ] }
     };
+    function loadModal() {
+      const modal = document.getElementById("add-image-modal-container");
+      modal.style.display = "flex";
+    }
+
+    function cancelModal() {
+      const modal = document.getElementById("add-image-modal-container");
+      modal.style.display = "none";
+    }
     (function() {
       var wf = document.createElement('script');
       wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';

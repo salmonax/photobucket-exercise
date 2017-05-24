@@ -56,10 +56,23 @@ const PhotoGrid = (props) => {
 class PhotoGridContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showModal: false,
+    }
   }
   componentDidMount() {
     getImages(0).then(data => {
       console.log(data);
+    });
+  }
+  showModal() {
+    this.setState({
+      showModal: true,
+    });
+  }
+  hideModal() {
+    this.setState({
+      showModal: false,
     });
   }
 
@@ -73,6 +86,19 @@ class PhotoGridContainer extends React.Component {
           <div className="small" onClick={this.props.logout}><a href='#'>Log out</a></div>
         </div>
         <PhotoGrid images={"woot"} /> {/* pass photo props */}
+        <div id="add-image-icon" onClick={this.showModal}></div>
+        {this.state.showModal ? 
+          <div id="add-image-modal-container">
+            <div id="add-image-modal">
+              <h4>Add Photo</h4>
+              <input type="text" placeholder="Caption"></input>
+              <div id="add-image-buttons">
+                <button class="unselected" onClick={this.hideModal}>Cancel</button>
+                <button class="selected">Upload</button>
+              </div>
+            </div>
+          </div> : null
+        }
       </div>
     );
   }
