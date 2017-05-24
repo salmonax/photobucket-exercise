@@ -1,4 +1,4 @@
-# flux-exercise
+# photobucket-exercise
 Exercise for photobucketing.
 
 ## Installation/Setup

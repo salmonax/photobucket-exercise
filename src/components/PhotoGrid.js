@@ -59,6 +59,8 @@ class PhotoGridContainer extends React.Component {
     this.state = {
       showModal: false,
     }
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
   componentDidMount() {
     getImages(0).then(data => {
@@ -76,6 +78,9 @@ class PhotoGridContainer extends React.Component {
     });
   }
 
+  triggerInput() {
+    document.getElementById("browse").click();
+  }
   render() {
     console.log(this.props);
     return (
@@ -94,7 +99,8 @@ class PhotoGridContainer extends React.Component {
               <input type="text" placeholder="Caption"></input>
               <div id="add-image-buttons">
                 <button class="unselected" onClick={this.hideModal}>Cancel</button>
-                <button class="selected">Upload</button>
+                <button class="selected" onClick={this.triggerInput}>Upload</button>
+                <input id="browse" type="file" name="pic" accept="image/*"/>
               </div>
             </div>
           </div> : null

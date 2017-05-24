@@ -152,6 +152,11 @@ body {
   border: 0px;
   height: 0px;
 }
+#browse { 
+  position: absolute;
+  opacity: 0;
+  z-index: -10;
+}
 
 .photo img {
   position: absolute;
