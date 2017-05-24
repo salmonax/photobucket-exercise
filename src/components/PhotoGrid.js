@@ -1,4 +1,5 @@
 import React from "react";
+import { getImages, postImage } from '../services/imageService';
 
 const PhotoContainer = (props) => {
   return (
@@ -56,6 +57,12 @@ class PhotoGridContainer extends React.Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    getImages(0).then(data => {
+      console.log(data);
+    });
+  }
+
   render() {
     console.log(this.props);
     return (

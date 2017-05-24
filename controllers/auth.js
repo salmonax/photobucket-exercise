@@ -8,14 +8,17 @@ const msg = {
  incorrectInfo: "Incorrect name or password.",
 };
 
+const secret = process.env.JWT_SECRET || 'super duper secret';
+
 const _sendError = (res, _message, status = 400) => {
   return (message = _message) => {
     res.status(status).json({ message })
   };
 }
-const makeToken = (user) => jwt.encode(user, process.env.JWT_SECRET || 'super duper secret');
+const makeToken = (user) => jwt.encode(user, secret);
 
 module.exports = {
+  decodeToken: (token) => jwt.decode(token, secret),
   register: (req, res, next) => {
     const sendError = _sendError(res);
     const { email, username, password } = req.body;
